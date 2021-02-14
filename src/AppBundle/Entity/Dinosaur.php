@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\ManyToOne;
 
 /**
  * @ORM\Entity
@@ -25,6 +26,11 @@ class Dinosaur
      * @ORM\Column(type="integer")
      */
     private $length = 0;
+
+    /**
+     * @ManyToOne(targetEntity="Enclosure", inversedBy="dinosaurs")
+     */
+    private $enclosure;
 
     public function __construct(string $genus = 'unknown', bool $isCarnivorous = false)
     {
