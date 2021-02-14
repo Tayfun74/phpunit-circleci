@@ -10,11 +10,15 @@
     <php>
         <ini name="error_reporting" value="-1" />
         <server name="KERNEL_CLASS" value="AppKernel" />
+        <server name="SYMFONY_PHPUNIT_REMOVE" value="" />
     </php>
 
     <testsuites>
         <testsuite name="Project Test Suite">
             <directory>tests</directory>
+        </testsuite>
+        <testsuite name="entities">
+            <directory>tests/Entity</directory>
         </testsuite>
     </testsuites>
 
