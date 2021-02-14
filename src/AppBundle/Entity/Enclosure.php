@@ -73,8 +73,16 @@ class Enclosure
         return false;
     }
 
-    private function addSecurity(Security $param)
+    public function addSecurity(Security $param)
     {
         $this->securities[] = $param;
+    }
+
+    /**
+     * @return Security[]|Collection
+     */
+    public function getSecurities()
+    {
+        return $this->securities;
     }
 }

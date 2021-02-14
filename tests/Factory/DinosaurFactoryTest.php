@@ -66,7 +66,9 @@ class DinosaurFactoryTest extends KernelTestCase
      */
     public function testItGrowsADinosaurFromASpecification(string $spec, bool $expectedCarnivorous)
     {
-        $this->lengthDeterminator->method('getLengthFromSpecification')
+        $this->lengthDeterminator->expects($this->once())
+            ->method('getLengthFromSpecification')
+            ->with($spec)
             ->willReturn(20);
         $dino = $this->factory->growFromSpecification($spec);
         $this->assertSame($expectedCarnivorous, $dino->isCarnivorous());

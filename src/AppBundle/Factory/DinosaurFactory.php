@@ -31,7 +31,7 @@ class DinosaurFactory
         return $dino;
     }
 
-    public function growFromSpecification(string $specification)
+    public function growFromSpecification(string $specification): Dinosaur
     {
         $codeName = 'InG-' . random_int(1, 99999);
         $isCarnivorous = false;
