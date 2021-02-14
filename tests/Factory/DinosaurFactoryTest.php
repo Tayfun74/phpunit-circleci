@@ -4,6 +4,8 @@ namespace Tests\Factory;
 
 use AppBundle\Entity\Dinosaur;
 use AppBundle\Factory\DinosaurFactory;
+use AppBundle\Service\DinosaurLengthDeterminator;
+use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class DinosaurFactoryTest extends KernelTestCase
@@ -11,9 +13,13 @@ class DinosaurFactoryTest extends KernelTestCase
     /** @var DinosaurFactory */
     private $factory;
 
+    /** @var MockObject */
+    private $lengthDeterminator;
+
     public function setUp(): void
     {
-        $this->factory = new DinosaurFactory();
+        $this->lengthDeterminator = $this->createMock(DinosaurLengthDeterminator::class);
+        $this->factory = new DinosaurFactory($this->lengthDeterminator);
     }
 
     protected function tearDown(): void
@@ -54,46 +60,28 @@ class DinosaurFactoryTest extends KernelTestCase
 
     /**
      * @dataProvider getSpecificationTests
+     *
      * @param string $spec
-     * @param bool   $expectedLarge
      * @param bool   $expectedCarnivorous
      */
-    public function testItGrowsADinosaurFromASpecification(string $spec, bool $expectedLarge, bool $expectedCarnivorous)
+    public function testItGrowsADinosaurFromASpecification(string $spec, bool $expectedCarnivorous)
     {
+        $this->lengthDeterminator->method('getLengthFromSpecification')
+            ->willReturn(20);
         $dino = $this->factory->growFromSpecification($spec);
-
-        if ($expectedLarge)
-        {
-            $this->assertGreaterThanOrEqual(Dinosaur::LARGE, $dino->getLength());
-        }
-        else
-        {
-            $this->assertLessThan(Dinosaur::LARGE, $dino->getLength());
-        }
         $this->assertSame($expectedCarnivorous, $dino->isCarnivorous());
+        $this->assertSame(20, $dino->getLength());
 
     }
 
     public function getSpecificationTests()
     {
         return [
-            ['large carnivorous dinosaur', true, true],
-            ['give me all the cookies!!!', false, false],
-            ['large herbivore', true, false],
+            ['large carnivorous dinosaur', true],
+            ['give me all the cookies!!!', false],
+            ['large herbivore', false],
         ];
     }
-
-    /**
-     * @dataProvider getHugeSpecificationTests
-     * @param string $spec
-     */
-    public function testItGrowsAHugeDino(string $spec)
-    {
-        $dino = $this->factory->growFromSpecification($spec);
-
-        $this->assertGreaterThanOrEqual(Dinosaur::HUGE, $dino->getLength());
-    }
-
 
     public function getHugeSpecificationTests()
     {
