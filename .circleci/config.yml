@@ -39,6 +39,8 @@ jobs:
           paths:
             - ./vendor
 
+      - run: mkdir var/data
+      - run: cp app/config/parameters.yml.dist app/config/parameters.yml
       # run tests with phpunit or codecept
       - run: ./vendor/bin/phpunit
 #      - run: ./vendor/bin/codecept build
