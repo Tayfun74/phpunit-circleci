@@ -53,6 +53,17 @@ class Dinosaur
     }
 
     /**
+     * @param mixed $enclosure
+     *
+     * @return Dinosaur
+     */
+    public function setEnclosure($enclosure)
+    {
+        $this->enclosure = $enclosure;
+        return $this;
+    }
+
+    /**
      * @param int $length
      *
      * @return Dinosaur

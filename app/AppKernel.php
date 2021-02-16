@@ -1,5 +1,6 @@
 <?php
 
+use Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
 
@@ -22,6 +23,8 @@ class AppKernel extends Kernel
             $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Liip\FunctionalTestBundle\LiipFunctionalTestBundle();
+            $bundles[] = new DoctrineFixturesBundle();
+            $bundles[] = new Liip\TestFixturesBundle\LiipTestFixturesBundle();
 
             if ('dev' === $this->getEnvironment()) {
                 $bundles[] = new Symfony\Bundle\WebServerBundle\WebServerBundle();
