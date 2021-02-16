@@ -43,6 +43,19 @@ class Enclosure
     }
 
     /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getDinosaurCount(): int
+    {
+        return $this->dinosaurs->count();
+    }
+
+    /**
      * @return Collection
      */
     public function getDinosaurs()
