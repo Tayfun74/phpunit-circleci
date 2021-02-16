@@ -42,6 +42,12 @@ jobs:
       - run: mkdir var/data
       - run: cp app/config/parameters.yml.dist app/config/parameters.yml
       # run tests with phpunit or codecept
-      - run: ./vendor/bin/phpunit
+      - run: ./vendor/bin/phpunit --log-junit ~/phpunit/junit.xml
+
+      - store_test_results:
+          path: ~/phpunit
+      - store_artifacts:
+          path: ~/phpunit
+
 #      - run: ./vendor/bin/codecept build
 #      - run: ./vendor/bin/codecept run
