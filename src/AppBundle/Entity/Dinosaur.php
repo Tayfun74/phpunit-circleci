@@ -15,6 +15,12 @@ class Dinosaur
     public const HUGE = 30;
 
     /**
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+    /**
      * @var string
      */
     protected $genus;
